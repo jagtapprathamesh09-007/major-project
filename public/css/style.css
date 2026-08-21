@@ -1,0 +1,155 @@
+/* navbar */
+
+ .navbar{
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222 !important;
+} 
+
+/* footer styling*/
+
+ .f-info {
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+    margin: 0 0.5rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+} 
+
+/* Cards overall styling */
+.card {
+  border: none !important;
+  margin-bottom: 2rem;
+  background-color: transparent !important;
+}
+
+/* Image container & sizing for uniform rounded look */
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  height: 20rem !important; /* Fixed height for uniform cards */
+  object-fit: cover !important;
+}
+
+/* Card Body spacing */
+.card-body {
+  padding: 0.5rem 0 0 0 !important;
+}
+
+/* Card images ko 2nd photo jaisa aspect ratio dene ke liye */
+.card-img-top {
+  border-radius: 1rem !important;
+  width: 100% !important;
+  height: 20rem !important; /* Visual stretch fix karne ke liye height 20rem rakh */
+  object-fit: cover !important;
+}
+
+.card {
+  border: none !important;
+  margin-bottom: 1.5rem;
+}
+
+.card-body {
+  padding: 0.5rem 0 0 0 !important;
+}
+
+.listing-link{
+    text-decoration: none;
+}
+
+/* Airbnb Style Red Button */
+.add-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+  padding: 0.5rem 1.8rem !important;
+  font-weight: 500 !important;
+  border-radius: 0.5rem !important;
+}
+
+.add-btn:hover {
+  background-color: #e03a44 !important;
+}
+
+/* Red Edit Button Styling */
+.edit-btn {
+  background-color: #fe424d !important;
+  border: none !important;
+  padding: 0.5rem 1.8rem !important;
+  font-weight: 500 !important;
+  border-radius: 0.5rem !important;
+}
+
+.edit-btn:hover {
+  background-color: #e03a44 !important;
+}
+
+/* Show Page Image Styling */
+.show-img {
+  height: 30vh !important;
+  border-radius: 1.2rem !important;
+  object-fit: cover !important;
+}
+
+.show-card {
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Red Edit Button */
+.edit-btn {
+  background-color: #fe424d !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.4rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+}
+
+.edit-btn:hover {
+  background-color: #e03a44 !important;
+  color: white !important;
+}
+
+/* Dark Delete Button */
+.delete-btn {
+  background-color: #222222 !important;
+  border: none !important;
+  padding: 0.4rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+}
