@@ -26,7 +26,7 @@
 
   <!-- Edit & Delete Buttons Side-by-Side -->
   <div class="btns col-6 offset-3 d-flex gap-3 mt-3 mb-5">
-    <a href="/listing/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
+    <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
     
     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
       <button class="btn btn-dark delete-btn">Delete</button>
