@@ -52,7 +52,7 @@
 } 
 
 /* Cards overall styling */
-.card {
+.listing-card {
   border: none !important;
   margin-bottom: 2rem;
   background-color: transparent !important;
@@ -152,4 +152,15 @@
   padding: 0.4rem 1.5rem !important;
   border-radius: 0.5rem !important;
   font-weight: 500 !important;
+}
+/* Review Cards Specific Styling */
+.review-card {
+  border: 1px solid #ced4da !important;
+  border-radius: 0.8rem !important;
+  padding: 1rem 1.2rem !important;
+  background-color: #ffffff !important;
+}
+
+.review-card .card-body {
+  padding: 0 !important;
 }
