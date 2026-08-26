@@ -13,6 +13,8 @@ const {listingSchema , reviewSchema} = require("./schema.js");
 const console = require("console");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -50,6 +52,26 @@ app.use(express.urlencoded({extended : true}));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
+
+const sessionOption ={
+    secret : "mysupersecretcode",
+    resave : false,
+    saveUninitialized : true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
+    }
+};
+
+app.use(session(sessionOption));
+app.use(flash());
+
+app.use((req ,res,next)=>{
+    res.locals.success = req.flash("success");
+     res.locals.error = req.flash("error");
+    next();
+});
 
 //___________________________________________________________________
 
