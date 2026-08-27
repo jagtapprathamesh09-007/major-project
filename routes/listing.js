@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const {listingSchema , reviewSchema} = require("../schema.js");
 const Listing = require("../models/listing.js");
+const{isLoggedin} = require("../middleware.js");
 
 
 const validateListing = (req,res,next)=>{
@@ -25,7 +26,7 @@ router.get("/" ,  async(req,res)=>{
 //___________________________________________________________________
 
 //create new route 
-router.get("/new" , (req,res)=>{
+router.get("/new" , isLoggedin ,(req,res)=>{
     res.render("listings/new.ejs")
 })
 
@@ -43,7 +44,7 @@ router.get("/:id" ,wrapAsync(async(req,res)=>{
 
 //create new route 
 
-router.post("/", wrapAsync (async (req,res,next)=>{
+router.post("/", isLoggedin ,wrapAsync (async (req,res,next)=>{
    const newListing = new Listing(req.body.listing);
    await newListing.save();
    req.flash("success","new listing created!");
@@ -52,7 +53,7 @@ router.post("/", wrapAsync (async (req,res,next)=>{
 
 
 //create a edit route
-router.get("/:id/edit" , wrapAsync(async(req,res)=>{
+router.get("/:id/edit" ,isLoggedin , wrapAsync(async(req,res)=>{
     let {id} = req.params;
     const listing =await Listing.findById(id);
     if (!listing) {
@@ -70,7 +71,7 @@ router.get("/:id/edit" , wrapAsync(async(req,res)=>{
 //     res.redirect(`/listing/${id}`);
 // }));
 
-router.put("/:id", wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedin , wrapAsync(async (req, res) => {
     let { id } = req.params;
     if (!req.body.listing.image.url || req.body.listing.image.url.trim() === "") {
         req.flash("success","listing edited!");
@@ -83,7 +84,7 @@ router.put("/:id", wrapAsync(async (req, res) => {
 
 //create a delete route 
 
-router.delete("/:id" , wrapAsync (async(req,res)=>{
+router.delete("/:id" ,isLoggedin , wrapAsync (async(req,res)=>{
      let { id } = req.params;
      await Listing.findByIdAndDelete(id);
      req.flash("success","listing deleted!");
@@ -92,3 +93,6 @@ router.delete("/:id" , wrapAsync (async(req,res)=>{
 
 
 module.exports = router;
+
+
+    
