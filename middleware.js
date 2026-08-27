@@ -7,6 +7,7 @@ module.exports.isLoggedin = (req,res,next)=>{
     next();
 };
 
+//for redirect with flow
 module.exports.saveRedirectUrl = (req, res, next) => {
   if (req.session.redirectUrl) {
     res.locals.redirectUrl = req.session.redirectUrl;
