@@ -7,15 +7,6 @@ const Listing = require("../models/listing.js");
 const{isLoggedin , isOwner} = require("../middleware.js");
 
 
-const validateListing = (req,res,next)=>{
-    let {error} = listingSchema.validate(req.body);
-    if(error){
-        throw (new ExpressError(400,error));
-    }else{
-        next();
-    }
-}
-
 // ha aapla index route aahe 
 
 router.get("/" ,  async(req,res)=>{
@@ -34,7 +25,7 @@ router.get("/new" , isLoggedin ,(req,res)=>{
 
 router.get("/:id" ,wrapAsync(async(req,res)=>{
     let {id} = req.params;
-     const listing =await Listing.findById(id).populate("reviews").populate("owner");
+     const listing =await Listing.findById(id).populate({path : "reviews" , populate:{path :"author" }}).populate("owner");
     if (!listing) {
         req.flash("error", "Listing you requested for does not exist!");
         return res.redirect("/listings");
