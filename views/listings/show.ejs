@@ -24,6 +24,7 @@
   </div>
 
   <!-- Edit & Delete Buttons Side-by-Side -->
+   <%  if(currUser && currUser._id.equals(listing.owner._id)) { %>
   <div class="btns col-6 offset-3 d-flex gap-3 mt-3 mb-5">
     <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
     
@@ -31,6 +32,7 @@
       <button class="btn btn-dark delete-btn">Delete</button>
     </form>
   </div>
+  <% } %>
   <div class="col-8 offset-3 mb-3">
   <hr />
   <h4>Leave a Review</h4>
