@@ -1,43 +1,37 @@
-const express =require("express");
+const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
-const {listingSchema , reviewSchema} = require("../schema.js");
+const { listingSchema, reviewSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
-const{isLoggedin , isOwner} = require("../middleware.js");
+const { isLoggedin, isOwner } = require("../middleware.js");
 const listingcontroller = require("../controllers/listing.js");
 
+// ha aapla index route aahe
+//create new route
+router
+  .route("/")
+  .get(wrapAsync(listingcontroller.index))
+  .post(isLoggedin, wrapAsync(listingcontroller.createListing));
 
-// ha aapla index route aahe 
+//create new route
+router.get("/new", isLoggedin, listingcontroller.renderNewForm);
 
-router.get("/",wrapAsync(listingcontroller.index) );
-
-//___________________________________________________________________
-
-//create new route 
-router.get("/new" , isLoggedin ,listingcontroller.renderNewForm);
-
-//show route 
-
-router.get("/:id" ,wrapAsync(listingcontroller.showListing));
-
-//create new route 
-
-router.post("/", isLoggedin ,wrapAsync (listingcontroller.createListing));
+// Show, Update & Delete Route
+router
+  .route("/:id")
+  .get(wrapAsync(listingcontroller.showListing))
+  .put(isLoggedin, wrapAsync(listingcontroller.updateListing))
+  .delete(isLoggedin, isOwner, wrapAsync(listingcontroller.destroyListing));
 
 
 //create a edit route
-router.get("/:id/edit" ,isLoggedin , isOwner,wrapAsync(listingcontroller.renderEditForm));
+router.get(
+  "/:id/edit",
+  isLoggedin,
+  isOwner,
+  wrapAsync(listingcontroller.renderEditForm),
+);
 
-//create update route 
-
-router.put("/:id",isLoggedin , wrapAsync(listingcontroller.updateListing));
-
-//create a delete route 
-
-router.delete("/:id" ,isLoggedin ,isOwner, wrapAsync (listingcontroller.destroyListing));
 
 module.exports = router;
-
-
-    
