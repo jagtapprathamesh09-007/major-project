@@ -1,22 +1,26 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
-  <!-- Center alignment ke liye col-8 offset-2 -->
   <div class="col-8 offset-2">
     <h3 class="mb-4">Edit your Listing</h3>
 
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
-      
+    <form
+      method="POST"
+      action="/listings/<%= listing._id %>?_method=PUT"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
       <!-- Title -->
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input 
-          name="listing[title]" 
-          value="<%= listing.title %>" 
-          type="text" 
-          class="form-control" 
-          id="title" 
-          required 
+        <input
+          name="listing[title]"
+          value="<%= listing.title %>"
+          type="text"
+          class="form-control"
+          id="title"
+          required
         />
         <div class="invalid-feedback">please enter valid title</div>
       </div>
@@ -24,53 +28,64 @@
       <!-- Description -->
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea 
-          name="listing[description]" 
-          class="form-control" 
-          id="description" 
-          rows="4" 
+        <textarea
+          name="listing[description]"
+          class="form-control"
+          id="description"
+          rows="4"
           required
-        ><%= listing.description %></textarea>
+        >
+<%= listing.description %></textarea
+        >
         <div class="invalid-feedback">please enter valid Description</div>
       </div>
 
-      <!-- Image Link -->
-      <div class="mb-3">
-  <label for="image" class="form-label">Image Link</label>
+      <!-- Original Image Preview -->
+<div class="mb-3">
+  <label class="form-label">Original Listing Image</label><br />
+  <img 
+    src="<%= originalImageUrl %>" 
+    alt="original_image" 
+    class="img-thumbnail" 
+    style="height: 150px; width: 250px; object-fit: cover;"
+  />
+</div>
+
+<!-- Upload New Image Field -->
+<div class="mb-3">
+  <label for="image" class="form-label">Upload New Image</label>
   <input 
-    name="listing[image][url]" 
-    value="<%= listing.image.url %>" 
-    type="text" 
+    name="listing[image]" 
+    type="file" 
     class="form-control" 
     id="image" 
   />
-  <div class="invalid-feedback">please enter valid image URL</div>
 </div>
 
       <!-- Price & Country (Side-by-Side Grid) -->
       <div class="row">
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
-          <input 
-            name="listing[price]" 
-            value="<%= listing.price %>" 
-            type="number" 
-            class="form-control" 
-            id="price" 
-            required 
+          <input
+            name="listing[price]"
+            value="<%= listing.price %>"
+            type="number"
+            class="form-control"
+            id="price"
+            required
           />
           <div class="invalid-feedback">please enter valid price</div>
         </div>
 
         <div class="mb-3 col-md-8">
           <label for="country" class="form-label">Country</label>
-          <input 
-            name="listing[country]" 
-            value="<%= listing.country %>" 
-            type="text" 
-            class="form-control" 
-            id="country" 
-            required 
+          <input
+            name="listing[country]"
+            value="<%= listing.country %>"
+            type="text"
+            class="form-control"
+            id="country"
+            required
           />
           <div class="invalid-feedback">please enter valid country name</div>
         </div>
@@ -79,20 +94,19 @@
       <!-- Location -->
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
-        <input 
-          name="listing[location]" 
-          value="<%= listing.location %>" 
-          type="text" 
-          class="form-control" 
-          id="location" 
-          required 
+        <input
+          name="listing[location]"
+          value="<%= listing.location %>"
+          type="text"
+          class="form-control"
+          id="location"
+          required
         />
         <div class="invalid-feedback">please enter valid location</div>
       </div>
 
       <!-- Submit Button -->
       <button class="btn btn-dark edit-btn mt-3">Edit</button>
-
     </form>
   </div>
 </div>

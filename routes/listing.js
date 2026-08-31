@@ -7,12 +7,21 @@ const Listing = require("../models/listing.js");
 const { isLoggedin, isOwner } = require("../middleware.js");
 const listingcontroller = require("../controllers/listing.js");
 
+// Multer setup
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
+
 // ha aapla index route aahe
 //create new route
 router
   .route("/")
   .get(wrapAsync(listingcontroller.index))
-  .post(isLoggedin, wrapAsync(listingcontroller.createListing));
+  .post(
+    isLoggedin,
+    upload.single("listing[image]"),
+    wrapAsync(listingcontroller.createListing),
+  );
 
 //create new route
 router.get("/new", isLoggedin, listingcontroller.renderNewForm);
@@ -21,9 +30,13 @@ router.get("/new", isLoggedin, listingcontroller.renderNewForm);
 router
   .route("/:id")
   .get(wrapAsync(listingcontroller.showListing))
-  .put(isLoggedin, wrapAsync(listingcontroller.updateListing))
+  .put(
+    isLoggedin,
+    isOwner,
+    upload.single("listing[image]"),
+    wrapAsync(listingcontroller.updateListing),
+  )
   .delete(isLoggedin, isOwner, wrapAsync(listingcontroller.destroyListing));
-
 
 //create a edit route
 router.get(
@@ -32,6 +45,5 @@ router.get(
   isOwner,
   wrapAsync(listingcontroller.renderEditForm),
 );
-
 
 module.exports = router;
