@@ -43,9 +43,6 @@ async function main() {
   await mongoose.connect(dburl);
 }
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
 //_______________________________________________________________________________________________________________
 
 
