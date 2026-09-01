@@ -5,7 +5,8 @@ if (process.env.NODE_ENV != "production") {
 const express = require ("express");
 const app = express();
 const mongoose = require("mongoose");
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
+const dburl = process.env.ATLASDB_URL;
+
 const Listing = require("./models/listing.js");
 const Review = require("./models/review.js");
 const path = require("path");
@@ -29,14 +30,16 @@ const reviewsrouter = require("./routes/review.js");
 const userrouter = require("./routes/user.js");
 
 
-main().then(()=>{
-    console.log("connected to DB");
-}).catch((err)=>{
-    console.log("err");
-});
+main()
+  .then(() => {
+    console.log("Connected to DB");
+  })
+  .catch((err) => {
+    console.log("DB Connection Error:", err);
+  });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dburl);
 }
 
 // app.get("/", (req , res)=>{
