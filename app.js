@@ -43,9 +43,9 @@ async function main() {
   await mongoose.connect(dburl);
 }
 
-// app.get("/", (req , res)=>{
-//     res.send("hii iam root ");
-// });
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 //_______________________________________________________________________________________________________________
 
 
