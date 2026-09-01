@@ -1,23 +1,38 @@
 const Listing = require("../models/listing");
 
-module.exports.index = async(req,res)=>{
-    const AllListing = await Listing.find({});
-    res.render("listings/index.ejs" , {AllListing});
+module.exports.index = async (req, res) => {
+  const { q } = req.query;
+  let filter = {};
+
+  if (q && q.trim() !== "") {
+    filter = {
+      $or: [
+        { location: { $regex: q.trim(), $options: "i" } },
+        { country: { $regex: q.trim(), $options: "i" } },
+        { title: { $regex: q.trim(), $options: "i" } },
+      ],
+    };
+  }
+
+  const AllListing = await Listing.find(filter);
+  res.render("listings/index.ejs", { AllListing });
 };
 
-module.exports.renderNewForm = (req,res)=>{
-    res.render("listings/new.ejs")
-}
+module.exports.renderNewForm = (req, res) => {
+  res.render("listings/new.ejs");
+};
 
-module.exports.showListing = async(req,res)=>{
-    let {id} = req.params;
-     const listing =await Listing.findById(id).populate({path : "reviews" , populate:{path :"author" }}).populate("owner");
-    if (!listing) {
-        req.flash("error", "Listing you requested for does not exist!");
-        return res.redirect("/listings");
-    }
-     res.render("listings/show.ejs", {listing});
-}
+module.exports.showListing = async (req, res) => {
+  let { id } = req.params;
+  const listing = await Listing.findById(id)
+    .populate({ path: "reviews", populate: { path: "author" } })
+    .populate("owner");
+  if (!listing) {
+    req.flash("error", "Listing you requested for does not exist!");
+    return res.redirect("/listings");
+  }
+  res.render("listings/show.ejs", { listing });
+};
 
 module.exports.createListing = async (req, res, next) => {
   let url = req.file.path;
@@ -50,7 +65,6 @@ module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-  
   if (typeof req.file !== "undefined") {
     let url = req.file.path;
     let filename = req.file.filename;
@@ -62,9 +76,9 @@ module.exports.updateListing = async (req, res) => {
   res.redirect(`/listings/${id}`);
 };
 
-module.exports.destroyListing = async(req,res)=>{
-     let { id } = req.params;
-     await Listing.findByIdAndDelete(id);
-     req.flash("success","listing deleted!");
-     res.redirect("/listings");
-}
+module.exports.destroyListing = async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndDelete(id);
+  req.flash("success", "listing deleted!");
+  res.redirect("/listings");
+};

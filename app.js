@@ -39,9 +39,9 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-app.get("/", (req , res)=>{
-    res.send("hii iam root ");
-});
+// app.get("/", (req , res)=>{
+//     res.send("hii iam root ");
+// });
 //_______________________________________________________________________________________________________________
 
 

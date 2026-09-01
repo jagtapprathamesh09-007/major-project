@@ -1,25 +1,96 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <!-- FIX 1: container-fluid ko change karke 'container' kar diya -->
-  <div class="container">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
+<nav class="navbar navbar-expand-md bg-white border-bottom sticky-top py-2">
+  <div class="container-fluid px-md-5 d-flex align-items-center justify-content-between">
+    <!-- Brand Logo -->
+    <a class="navbar-brand text-danger d-flex align-items-center gap-2 m-0" href="/listings">
+      <i class="fa-regular fa-compass fs-2"></i>
+      <span class="fw-bold d-none d-sm-inline">wanderlust</span>
+    </a>
+
+    <!-- Center Section: Category Tabs & Compact Search Pill -->
+    <div class="d-none d-lg-flex flex-column align-items-center mx-auto" id="headerCenterSection">
+      <!-- Category Tabs (Expanded state mein dikhenge) -->
+      <div class="d-flex align-items-center gap-4 header-categories mb-2" id="navCategoryTabs">
+        <a href="/listings" class="category-tab active">
+          <i class="fa-solid fa-globe fs-5"></i>
+          <span>All</span>
+        </a>
+        <a href="/listings?category=homes" class="category-tab">
+          <i class="fa-solid fa-house-chimney fs-5"></i>
+          <span>Homes</span>
+        </a>
+        <a href="/listings?category=experiences" class="category-tab">
+          <i class="fa-solid fa-mountain-sun fs-5"></i>
+          <span>Experiences</span>
+        </a>
+        <a href="/listings?category=services" class="category-tab">
+          <i class="fa-solid fa-bell-concierge fs-5"></i>
+          <span>Services</span>
+        </a>
       </div>
-      <div class="navbar-nav ms-auto">
-        <% if (!currUser){%>
-        <a class="nav-link active" href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Log in</a>
-        <%}%>
-        <% if (currUser){%>
-        <a class="nav-link" href="/logout">Log out</a>
-        <%}%>
+
+      <!-- Compact Search Bar (Initial hidden, collapse hone par yahan dikhega) -->
+      <div class="compact-search shadow-sm d-none" id="compactSearchPill">
+        <span class="compact-text">Anywhere</span>
+        <span class="compact-divider"></span>
+        <span class="compact-text">Any week</span>
+        <span class="compact-divider"></span>
+        <span class="compact-text text-muted">Add guests</span>
+        <button type="button" class="compact-btn" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </div>
+    </div>
+
+    <!-- Right Side Menu -->
+    <div class="d-flex align-items-center gap-2">
+      <a class="nav-link me-2 d-none d-md-inline" href="/listings/new">Airbnb your home</a>
+      <% if (!currUser) { %>
+        <a class="nav-link fw-semibold" href="/signup">Sign up</a>
+        <a class="nav-link fw-semibold" href="/login">Log in</a>
+      <% } else { %>
+        <a class="nav-link fw-semibold text-danger" href="/logout">Log out</a>
+      <% } %>
     </div>
   </div>
 </nav>
+
+<!-- Expanded Floating Search Bar Container -->
+<div class="search-bar-wrapper" id="expandedSearchContainer">
+  <div class="container d-flex justify-content-center py-2">
+    <form action="/listings" method="GET" class="airbnb-search-bar shadow-sm">
+      <!-- Where Section -->
+      <div class="search-item flex-grow-1">
+        <label for="search-where" class="search-label">Where</label>
+        <input 
+          type="text" 
+          id="search-where" 
+          name="q" 
+          placeholder="Search destinations" 
+          class="search-input"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="search-divider d-none d-md-block"></div>
+
+      <!-- When Section -->
+      <div class="search-item d-none d-md-block">
+        <span class="search-label">When</span>
+        <span class="search-subtext">Add dates</span>
+      </div>
+
+      <div class="search-divider d-none d-md-block"></div>
+
+      <!-- Who Section -->
+      <div class="search-item d-none d-md-block">
+        <span class="search-label">Who</span>
+        <span class="search-subtext">Add guests</span>
+      </div>
+
+      <!-- Red Search Button -->
+      <button type="submit" class="search-btn" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
+  </div>
+</div>
